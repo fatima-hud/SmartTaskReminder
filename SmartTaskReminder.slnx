@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="SmartTaskReminder.Application/SmartTaskReminder.Application.csproj" />
+  <Project Path="SmartTaskReminder.Core/SmartTaskReminder.Core.csproj" />
+  <Project Path="SmartTaskReminder.Infrastructure/SmartTaskReminder.Infrastructure.csproj" />
+  <Project Path="SmartTaskReminder/SmartTaskReminder.API.csproj" />
+</Solution>
