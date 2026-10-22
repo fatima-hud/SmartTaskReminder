@@ -19,5 +19,8 @@ namespace SmartTaskReminder.Infrastructure.Context
         }
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<TaskItem> TaskItems { get; set; } = null!;
+        public DbSet<Role> Roles { get; set; } = null!;
+        public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
     }
-}
+    }
+

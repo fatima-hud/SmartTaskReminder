@@ -1,26 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using SmartTaskReminder.Infrastructure.Context;
-
+using SmartTaskReminder.Application.Interfaces;
 
 namespace SmartTaskReminder.Infrastructure.InfrastructureBases
 {
     public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
     {
 
-        #region Vars / Props
-        protected ApplicationDbContext _dbContext { get; set; }
-        #endregion
 
-        #region Constructor(s)
+        protected ApplicationDbContext _dbContext { get; set; }
+
+
+
         public GenericRepositoryAsync(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        #endregion
 
-        #region Actions
 
         public IQueryable<T> GetTableAsTracking()
         {
@@ -85,22 +82,7 @@ namespace SmartTaskReminder.Infrastructure.InfrastructureBases
         }
 
 
-        public async Task<IDbContextTransaction> BeginTransactionAsync()
-        {
-            return await _dbContext.Database.BeginTransactionAsync();
-        }
 
-        public async Task CommitAsync()
-        {
-            await _dbContext.Database.CommitTransactionAsync();
 
-        }
-
-        public async Task RollBackAsync()
-        {
-            await _dbContext.Database.RollbackTransactionAsync();
-
-        }
-        #endregion
     }
 }

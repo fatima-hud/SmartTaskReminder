@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿
 
-namespace SmartTaskReminder.Infrastructure.InfrastructureBases
+namespace SmartTaskReminder.Application.Interfaces
 {
     public interface IGenericRepositoryAsync<T>
     {
@@ -13,9 +13,6 @@ namespace SmartTaskReminder.Infrastructure.InfrastructureBases
         Task UpdateAsync(T entity);
         Task UpdateRangeAsync(ICollection<T> entities);
         Task DeleteAsync(T entity);
-        Task<IDbContextTransaction> BeginTransactionAsync();
-        Task CommitAsync();
-        Task RollBackAsync();
         Task SaveChangesAsync();
 
     }

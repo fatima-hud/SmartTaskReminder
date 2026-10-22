@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartTaskReminder.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using System.Text;
 
 namespace SmartTaskReminder.Infrastructure.Configurations
@@ -28,9 +29,18 @@ namespace SmartTaskReminder.Infrastructure.Configurations
             builder.HasIndex(u => u.Email)
                 .IsUnique().HasFilter("[IsDeleted] = 0");
 
-            builder.HasIndex(u => u.Username)
+            builder.HasIndex(u => u.UserName)
                .IsUnique()
                .HasFilter("[IsDeleted] = 0");
+
+            builder.HasOne(u=>u.Role)
+                .WithMany(r => r.Users)
+                .HasForeignKey(u => u.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(u => u.Gender)
+             .HasConversion<string>();
+
 
         }
     }

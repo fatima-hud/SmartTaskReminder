@@ -18,6 +18,7 @@ namespace SmartTaskReminder.Core.Entities
         public DateTime? DueDate { get; set; }
 
         public int? ReminderBeforeMinutes { get; set; }
+        public string? ReminderJobId { get; set; }
         public int UserId { get; set; }
         public User User { get; set; } = null!;
     }

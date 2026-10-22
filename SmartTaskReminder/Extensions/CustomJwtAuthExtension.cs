@@ -19,34 +19,26 @@ namespace SmartTaskReminder.API.Extensions
             {
                 o.RequireHttpsMetadata = false;
                 o.SaveToken = true;
-                o.TokenValidationParameters = new TokenValidationParameters()
+                o.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidIssuer = configuration["JWT:Issuer"],
+
                     ValidateAudience = true,
                     ValidAudience = configuration["JWT:Audience"],
+
+                    ValidateLifetime = true,
+
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"])),
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                     Encoding.UTF8.GetBytes(
+                     configuration["JWT:SecretKey"]
+                     ?? throw new InvalidOperationException(
+                     "JWT SecretKey is missing."))),
+
                     ClockSkew = TimeSpan.Zero
-
                 };
-                o.Events = new JwtBearerEvents
-                {
-                    OnMessageReceived = context =>
-                    {
-                        var accessToken = context.Request.Query["access_token"];
-
-                        var path = context.HttpContext.Request.Path;
-
-                        if (!string.IsNullOrEmpty(accessToken) &&
-                            path.StartsWithSegments("/chatHub"))
-                        {
-                            context.Token = accessToken;
-                        }
-
-                        return Task.CompletedTask;
-                    }
-                };
+             
             });
         }
 
